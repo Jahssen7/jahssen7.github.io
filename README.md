@@ -1,3 +1,3 @@
 # ayam pop
 
-! [img] (https://ibb.co.com/jPkkyMMy)
+! [img](./photo/screenshot/1.png)
