@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s3nn</title>
+    
+    <link rel="icon" type="image/png" href="icon/18835-64x64x32.png">
+
+    <link href="style.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="https://unpkg.com/xp.css">
+    
+    <meta property="og:image" content="http://25.media.tumblr.com/tumblr_m3illaAsHw1rv68y7o1_400.gif" />
+    <meta property="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;800&display=swap" rel="stylesheet">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+
+        <!-------MUSIC PLAYER BY GLENTHEMES------->
+    <script src="//static.tumblr.com/gtjt4bo/QRmphdsdv/glenplayer02.js"></script>
+    
+    <script src="https://kit.fontawesome.com/8119dfca45.js" crossorigin="anonymous"></script>
+
+
+    
+
+    <script language="JavaScript">
+        var message = "mw ngaoain bero";
+        function clickIE4() { 
+            if (event.button == 2) { alert(message); return false; } 
+        }
+        function clickNS4(e) { 
+            if (document.layers || (document.getElementById && !document.all)) { 
+                if (e.which == 2 || e.which == 3) { alert(message); return false; } 
+            } 
+        }
+        if (document.layers) { 
+            document.captureEvents(Event.MOUSEDOWN); document.onmousedown = clickNS4; 
+        } else if (document.all && !document.getElementById) { 
+            document.onmousedown = clickIE4; 
+        }
+        document.oncontextmenu = new Function("alert(message);return false");
+    </script>
+
+    <style>
+        :root {
+            --body-bg-image: url('https://wallpapercave.com/wp/wp9324707.jpg');
+        }
+
+        @font-face {
+            font-family: Nunito;
+            src: url('https://sadhost.neocities.org/fonts/Nunito-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: Nunito;
+            src: url('https://sadhost.neocities.org/fonts/Nunito-Bold.ttf');
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: 'music';
+            src: url(https://cdn.glitch.me/9bbfdfb3-4bfa-4c39-8743-5621c8b9df21/LL_RECOR.TTF);
+        }
+        
+        @font-face {
+            font-family: Pixelated MS Sans Serif;
+            src:url(ms_sans_serif.woff) format("woff");
+            src:url(ms_sans_serif.woff2) format("woff2");
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            cursor: url('https://cur.cursors-4u.net/games/gam-4/gam372.cur'), auto;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            background-color: #08031A;
+            background-image: var(--body-bg-image);
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            max-width: 850px;
+            height: 90vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window-body {
+            overflow: hidden;
+            padding: 0 3px 5px;
+            box-sizing: border-box;
+            margin: 5px;
+        }
+
+        .window > .window-body:last-of-type {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: #ece9d8;
+            margin: 4px;
+        }
+
+        .url {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            box-sizing: border-box;
+            flex-wrap: nowrap;
+        }
+
+        .url input {
+            width: 100%;
+        }
+
+        .url .icon {
+            padding: 0px 3px;
+        }
+
+        .icon {
+            height: 1.5em;
+            padding-right: 5px;
+        }
+
+        #header {
+            width: 100%;
+            height: 110px;
+            background-color: #000000;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #7f9db9;
+        }
+
+        .logo, .logo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        #flex {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        aside {
+            width: 230px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        aside fieldset {
+            background-color: #f4f3e8;
+            margin: 0;
+            height: auto;
+        }
+
+        .profile-container {
+            text-align: center; 
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            max-width: 100%;
+            height: auto;
+            max-height: 180px;
+            padding: 2px;
+            background: #7f9db9;
+            border-radius: 5%;
+            display: block; 
+            margin: 0 auto 8px auto;
+        }
+
+        .online-gif {
+            width: 80px; 
+            height: 20px; 
+            display: inline-block;
+        }
+
+        .bio-text {
+            line-height: 1.4; 
+            margin-bottom: 12px; 
+            color: #000000; 
+            font-size: 12px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main fieldset {
+            background-color: #f4f3e8;
+        }
+
+        main h1 {
+            font-size: 20px;
+            margin: 0 0 4px 0;
+            color: #0040a0;
+        }
+
+        main p {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0 0 10px 0;
+            color: #000000;
+        }
+
+        main .subtitle {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #555555;
+        }
+
+        .anime-ascii {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 5px;
+            line-height: 1.1;
+            letter-spacing: 0px;
+            white-space: pre;
+            color: #08031A;
+            background: #f4f3e8;
+            padding: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .pixel-font{
+            font-family: "Pixelated MS Sans Serif",Arial;
+        }
+
+        .enter-btn {
+            display: block;
+            margin: 8px 0;
+            text-align: center;
+            color: #e9fdff;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 6px 0;
+            border-radius: 3px;
+            background: linear-gradient(to bottom, #0051ee 0%, #0042dd 100%);
+            border: 1px solid #707070;
+            box-shadow: inset -1px -1px 1px #a0a0a0;
+        }
+
+        .btn {
+            display: grid;
+            margin: -3px 0;
+            text-align: center;
+            color: #e9fdff;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 6px 0;
+        }
+
+        /* 
+        .winXP-wrap {
+            border: 1px solid RGB(1, 63, 102);
+            margin-right: 10px;
+            border-radius: 3px;
+            display: inline;
+            margin-right: 10px;
+            padding-top: 2px;
+            padding-bottom: 4px;
+            background: #f6f6f6;
+            background: -moz-linear-gradient(top, #f6f6f6 0%, #ffffff 6%, #fffdfe 12%, #fbf9fa 18%, #f8f7f5 41%, #f7f3f0 47%, #f8f3ef 82%, #e7e0d8 94%, #dad3c9 100%);
+            background: -webkit-linear-gradient(top, #f6f6f6 0%, #ffffff 6%, #fffdfe 12%, #fbf9fa 18%, #f8f7f5 41%, #f7f3f0 47%, #f8f3ef 82%, #e7e0d8 94%, #dad3c9 100%);
+            background: linear-gradient(to bottom, #f6f6f6 0%, #ffffff 6%, #fffdfe 12%, #fbf9fa 18%, #f8f7f5 41%, #f7f3f0 47%, #f8f3ef 82%, #e7e0d8 94%, #dad3c9 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#dad3c9', GradientType=0);
+        }
+
+        .winXP-btn {
+            padding: 3px 15px 3px 15px;
+            border: 2px solid transparent;
+            background: transparent;
+        }
+
+        .winXP-btn:hover,.winXP-btn:focus {
+            outline: 0;
+            border: 2px solid #B9D0F0;
+        }
+
+        .winXP-btn:active {
+            background: #dad3c9;
+            background: -moz-linear-gradient(top, #dad3c9 0%, #e7e0d8 6%, #f8f3ef 18%, #f7f3f0 53%, #f8f7f5 59%, #fbf9fa 82%, #fffdfe 88%, #ffffff 94%, #f6f6f6 100%);
+            background: -webkit-linear-gradient(top, #dad3c9 0%, #e7e0d8 6%, #f8f3ef 18%, #f7f3f0 53%, #f8f7f5 59%, #fbf9fa 82%, #fffdfe 88%, #ffffff 94%, #f6f6f6 100%);
+            background: linear-gradient(to bottom, #dad3c9 0%, #e7e0d8 6%, #f8f3ef 18%, #f7f3f0 53%, #f8f7f5 59%, #fbf9fa 82%, #fffdfe 88%, #ffffff 94%, #f6f6f6 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#dad3c9', endColorstr='#f6f6f6', GradientType=0);
+        }
+
+
+        .enter-btn:hover {
+            background: linear-gradient(to bottom, #f5f4ea 0%, #dedbc7 100%);
+            border-color: #555555;
+        }
+        */
+
+        .userbars-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            padding: 4px 0;
+        }
+
+        .userbars-container img {
+            display: block;
+            width: 350px;
+            height: 19px;
+            object-fit: fill;
+            border: 1px solid #7f9db9;
+        }
+
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 0;
+            margin: -3px 0 0 0;
+            list-style-type: none;
+        }
+
+        .social-row img {
+            width: 26px;
+            height: 26px;
+            transition: transform 0.1s ease;
+        }
+
+        .tiktok {
+            border-radius: 3px;
+        }
+
+        .roblox  {
+            border-radius: 3px;
+        }
+
+        .social-row img:hover {
+            transform: scale(1.1);
+        }
+
+        .title-bar-controls button {
+            border: none !important;
+            padding: 0 !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            outline: none !important;
+            min-width: 16px !important;
+            min-height: 14px !important;
+        }
+
+        #copyright {
+            margin: 0%;
+            font-size: 10px;
+        }
+
+        /*music*/
+        #glenplayer02 {
+            position:relative;
+            display:flex;
+            justify-content: center;
+            background: linear-gradient(to bottom, #ffffff 0%, #ece9d8 100%);
+            padding: .2em;
+            border: 3px solid;
+            border-style: inset;
+            margin: auto;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            width:auto;
+        }
+            
+        #glenplayer02 a {
+            text-decoration:none;
+        }
+            
+        #glenplayer02 > div {
+            align-self:center;
+            -webkit-align-self:center;
+        }
+            
+        .music-controls {
+            user-select:none;
+            -webkit-user-select:none;
+            width:13px;
+            font-size:15px;
+            cursor:pointer;
+            font-family: 'music';
+        }
+            
+        .playy, .pausee {
+            font-family: 'music'; 
+            font-size: 1.0em; 
+            color: #7f9db9; 
+            -webkit-text-stroke: 0.5px #000; 
+            margin-top: -0.1em; 
+            margin-left: -5px;
+            margin-bottom: 0.1em; 
+        } /* color of play & pause buttons */
+            
+        .pausee {
+            display:none;
+        }
+            
+        .sonata {
+            margin-left:0.4em;
+            font-family: Pixelated MS Sans Serif;
+            font-size:0.75em;
+            color:#000; /* color of music note symbol */
+        }
+            
+        .labeltext {
+            margin-left:0.5em;
+            position: relative;
+            bottom:0.1em;
+            font-size:10px;/* color of song title */
+        }
+
+        @media only screen and (max-width: 800px) {
+            #container {
+                padding: 0 10px;
+            }
+            #flex {
+                flex-direction: column;
+            }
+            aside {
+                width: 100%;
+            }
+            .userbars-container img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+   <!--
+    <audio id="musikLatar" autoplay loop hidden>
+  <source src="audioz/U Weren't Here I Really Miss You - Cult Member.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<script>
+  var audio = document.getElementById("musikLatar");
+  audio.volume = 0.5;
+</script>
+ -->
+
+    <div id="container">
+        <div class="window">
+            
+            <div class="title-bar">
+                <img src="https://www.rw-designer.com/icon-image/18757-64x64x32.png" alt="icon" style="height: 16px; width: 16px;">
+                <div class="title-bar-text" style="margin-left: -530px;">Jahssen's Space - Internet Explorer</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize" onclick="window.location.href='backup/juan.html'"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            
+            <div class="window-body">    
+                <div class="url">
+                    <img class="icon" src="https://arutemu64.neocities.org/resources/icons/ie_page.png">
+                    <input type="text" value="https://Jahssen.org/index.html" disabled>
+                </div>
+            </div>
+            
+            <div class="window-body" style="margin: 4px;">
+                <div id="header">
+                    <a href="index.html" class="logo">
+                        <img src="photo/8796161770470403.jpg" alt="banner">
+                    </a>
+                </div>
+
+                
+     
+                <div id="flex">
+                    <aside id="leftSidebar">
+                        <fieldset>
+                            <legend>About Me</legend>
+                            
+                            <div class="profile-container">
+                                <img src="photo/817895982373977852.jpg" alt="Avatar" class="avatar">
+                                <img src="https://web.archive.org/web/20091027104758if_/http://geocities.com/bsbxoxo/stariconblue.gif" alt="'online now' blinking gif (fake)" class="left-column online-gif">
+                            </div>
+                            
+                            <p class="bio-text">
+                                Name: Jahssen<br>
+                                Birthdate: 02.13.2010<br>
+                                Pronouns: he/him<br>
+                                Country: Indonesia<br>
+                                Interests: music, anime, technologies, poetry, car.
+                            </p>
+                        </fieldset>
+
+                        <fieldset style="margin-top: 1px;">
+                            <legend>Socials</legend>
+                            <ul class="social-row">
+                                <li><a href="https://www.instagram.com/jahssen7/" target="_blank"><img src="icon/imgi_1_Instagram.ico" alt="Instagram"></a></li>
+                                <li><a href="https://www.tiktok.com/@jahssen7" target="_blank"><img src="icon/1105915252265510842.ico" alt="TikTok" class="tiktok"></a></li>
+                                <li><a href="https://www.youtube.com/@Jahssen7" target="_blank"><img src="icon/320951910918261750.ico" alt="YouTube"></a></li>
+                                <li><a href="https://www.roblox.com/users/5380706010/profile" target="_blank"><img src="icon/1064116218599705882.ico" alt="Roblox" class="roblox"></a></li>
+                            </ul>
+                        </fieldset>
+                    </aside>
+                <main>
+                        <fieldset>
+                            <legend>Poetry</legend>
+                            <h1>Senyum</h1><br>
+                            <p>Di dunia ini, ada satu hal yang gagal kuterjemahkan lewat logika: sudut bibirmu. Tiap kali ia melengkung, ia melahirkan pelangi yang paling tenang. Kamu tidak sedang sekadar tersenyum; kamu sedang membagikan serpihan surga kepada jiwa-jiwa yang sudah lupa caranya bernapas lega.</p>
+                        </fieldset>
+
+    <style>
+    @keyframes spin {
+        100% {
+        transform: rotate(360deg);
+        }
+    }
+
+    .vinyl-container {
+        justify-content: center;
+        margin-right: 35px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .recordPlayer {
+        margin-top: -5px;
+        margin-bottom: 20px;
+        position: relative;
+        width: 120px; 
+        height: 120px;
+    }
+
+    .vinyl11 {
+        position: absolute;
+        left: 45px; 
+        top: 12.1px;
+        height: 115px;
+        width: 115px;
+        animation: spin 1.88s linear infinite;
+        z-index: 1; 
+    }
+
+    .vinylCover {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        height: 120px;
+        width: 120px;
+        z-index: 2; 
+    }
+    </style>
+                    </main>
+
+                    <aside id="rightSidebar">
+                    <!--
+                        <fieldset>
+                            <legend>Sidebar Kanan</legend>
+                                <fieldset>
+                                    <div style="padding: 5px;">
+                                        <a style="font-size: 13px; color: #000;">Poetry</a>
+                                    </div>
+                                </fieldset>
+                        </fieldset>
+                    -->
+                        <fieldset>
+                            <legend>Navigation</legend>
+
+                            <!--
+                            <div class="winXP-wrap">
+                            <input class="winXP-btn" type="button" value="Button" /></div>
+                            -->
+                            <!--
+                            <a href="diary.html" class="enter-btn">diary</a>
+                            -->
+
+                            <!--
+                            <a href="photograph.html" class="enter-btn" style="font-family: Pixelated MS Sans Serif;">photograph</a>
+                            -->
+
+                            <style>
+                                .btn-grp {
+                                    justify-content: center;
+                                    display: flex;
+                                    gap: 9px;
+                                    flex-wrap: wrap;
+                                }
+
+                                .btn1 {
+                                    display: flex;
+                                    margin: -3px 0;
+                                    padding: 3px 0;
+                                }
+                            </style>
+                                <div class="btn-grp">
+                                    <form class="btn1" action="Poetry.html" method="get">
+                                        <button oneclick="window.location.href='poetry.html';" style="font-family: Pixelated MS Sans Serif;">Back</button>
+                                    </form>
+
+                                    <form class="btn1" action="maintenanc.html" method="get">
+                                        <button oneclick="window.location.href='photograph.html';" style="font-family: Pixelated MS Sans Serif;">Next</button>
+                                    </form>
+
+                                    <form class="btn1" action="index1.html" method="get">
+                                        <button oneclick="window.location.href='photograph.html';" style="font-family: Pixelated MS Sans Serif;">Home</button>
+                                    </form>
+                                </div>
+                        </fieldset>
+
+                        <fieldset>
+                                <legend>Music</legend>
+
+    <div class="vinyl-container">
+    <div class="recordPlayer">
+        <img class="vinyl11" src="https://beta.vinylify.com/wp-content/uploads/2018/05/vinyl-black.png"/>
+        <a href="https://open.spotify.com/album/0QiUMboPu6iFFwIvSoWjZI?highlight=spotify:track:05OJKslDMZcRoanXFtv1oM">    
+            <img class="vinylCover" src="photo/Lucky Number 3.jpg"/>
+        </a>
+    </div>
+<!--
+    <div class="recordPlayer">
+        <img class="vinyl11" src="https://beta.vinylify.com/wp-content/uploads/2018/05/vinyl-black.png"/>
+        <a href="https://open.spotify.com/album/1pb833uCDQF7R9BBJ5Qg1j?highlight=spotify:track:6lRJqlbbsSAyoN67hVsF8A">
+            <img class="vinylCover" src="photo/Leave.jpg"/>
+        </a>
+        </div>
+-->
+    <div class="recordPlayer">
+        <img class="vinyl11" src="https://beta.vinylify.com/wp-content/uploads/2018/05/vinyl-black.png"/>
+        <a href="https://open.spotify.com/album/42bSpkr89bdrwMMNuEZlDJ?highlight=spotify:track:50gchdAhBUnVOLqQRyKE9L">
+            <img class="vinylCover" src="photo/Race.jpg"/>
+        </a>
+    </div>
+    </div>
+
+                        </fieldset>
+                    </aside>
+                    </div>
+                </body>
+            </div>
+        </div>
+    </div>
+</div>  
+</body>
+</html>
