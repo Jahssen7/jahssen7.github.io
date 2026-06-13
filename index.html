@@ -493,6 +493,8 @@
   <source src="audioz/Microsoft_Windows_XP_Startup_Sound__Ballywegmp3.mp3" type="audio/mp3">
 </audio>
 
+<audio id="clicksound" src="audioz/erro.mp3"></audio>
+
     <div id="container">
         <div class="window">
             
@@ -502,7 +504,7 @@
                 <div class="title-bar-controls">
                     <button aria-label="Minimize" onclick="window.location.href='backup/juan.html'"></button>
                     <button aria-label="Maximize"></button>
-                    <button aria-label="Close"></button>
+                    <button aria-label="Close" onclick="document.getElementById('clicksound').play()"></button>
                 </div>
             </div>
             
